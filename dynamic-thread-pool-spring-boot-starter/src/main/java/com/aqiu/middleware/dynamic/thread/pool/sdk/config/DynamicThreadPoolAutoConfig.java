@@ -52,7 +52,7 @@ public class DynamicThreadPoolAutoConfig {
         for (String threadPoolKey : threadPoolKeys) {
             String key = RegistryEnumVO.THREAD_POOL_CONFIG_PARAMETER_LIST_KEY.getKey() + "_" + applicationName + "_" + threadPoolKey;
             RBucket<ThreadPoolConfigEntity> cacheConfig = redissonClient.getBucket(key);
-            if (cacheConfig!=null){
+            if (cacheConfig!=null&&cacheConfig.get()!=null){
                 ThreadPoolExecutor threadPoolExecutor = threadPoolExecutorMap.get(threadPoolKey);
                 threadPoolExecutor.setMaximumPoolSize(cacheConfig.get().getMaximumPoolSize());
                 threadPoolExecutor.setCorePoolSize(cacheConfig.get().getCorePoolSize());
