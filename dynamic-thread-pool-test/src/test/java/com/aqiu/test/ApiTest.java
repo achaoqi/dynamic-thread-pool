@@ -23,7 +23,9 @@ public class ApiTest {
     public void test_dynamicThreadPoolRedisTopic() throws InterruptedException {
         ThreadPoolConfigEntity config = new ThreadPoolConfigEntity();
         config.setAppName("dynamic-thread-pool-test-app");
-        config.setThreadPoolName("test-thread-pool");
+        config.setIp("192.168.245.1");
+        config.setPort("8093");
+        config.setThreadPoolName("threadPoolExecutor01");
 
         config.setCorePoolSize(10);
         config.setMaximumPoolSize(20);

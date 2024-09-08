@@ -14,11 +14,15 @@ public class DynamicThreadPoolService implements IDynamicThreadPoolService{
     private final Logger logger= LoggerFactory.getLogger(DynamicThreadPoolService.class);
 
     private final String applicationName;
+    private final String ip;
+    private final String port;
 
     private final Map<String,ThreadPoolExecutor> threadPoolExecutorMap;
 
-    public DynamicThreadPoolService(String applicationName, Map<String, ThreadPoolExecutor> threadPoolExecutorMap) {
+    public DynamicThreadPoolService(String applicationName,Map<String, ThreadPoolExecutor> threadPoolExecutorMap,String ip, String port) {
         this.applicationName = applicationName;
+        this.ip = ip;
+        this.port = port;
         this.threadPoolExecutorMap = threadPoolExecutorMap;
     }
 
@@ -48,7 +52,7 @@ public class DynamicThreadPoolService implements IDynamicThreadPoolService{
 
     @Override
     public void updateThreadPoolConfig(ThreadPoolConfigEntity threadPoolConfigEntity) {
-        if (threadPoolConfigEntity==null || !applicationName.equals(threadPoolConfigEntity.getAppName())) return;
+        if (threadPoolConfigEntity==null || !applicationName.equals(threadPoolConfigEntity.getAppName()) || !ip.equals(threadPoolConfigEntity.getIp())||!port.equals(threadPoolConfigEntity.getPort())) return;
         ThreadPoolExecutor threadPoolExecutor = threadPoolExecutorMap.get(threadPoolConfigEntity.getThreadPoolName());
         if (threadPoolExecutor==null) return;
 
@@ -60,6 +64,8 @@ public class DynamicThreadPoolService implements IDynamicThreadPoolService{
     private ThreadPoolConfigEntity threadPoolExecutorToEntity(String threadPoolName,ThreadPoolExecutor threadPoolExecutor){
         ThreadPoolConfigEntity config = new ThreadPoolConfigEntity();
         config.setAppName(applicationName);
+        config.setIp(ip);
+        config.setPort(port);
         config.setThreadPoolName(threadPoolName);
         config.setCorePoolSize(threadPoolExecutor.getCorePoolSize());
         config.setMaximumPoolSize(threadPoolExecutor.getMaximumPoolSize());

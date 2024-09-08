@@ -9,6 +9,14 @@ public class ThreadPoolConfigEntity {
      */
     private String appName;
     /**
+     * ip
+     */
+    private String ip;
+    /**
+     * 端口
+     */
+    private String port;
+    /**
      * 线程池名称
      */
     private String threadPoolName;
@@ -114,5 +122,21 @@ public class ThreadPoolConfigEntity {
 
     public void setRemainingCapacity(int remainingCapacity) {
         this.remainingCapacity = remainingCapacity;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+
+    public String getPort() {
+        return port;
+    }
+
+    public void setPort(String port) {
+        this.port = port;
     }
 }
